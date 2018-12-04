@@ -7,29 +7,44 @@ playerToChar :: Integer -> Char
 readSlot :: [[Int]] -> Int -> IO(Int)
 
 {-|
-Definition of playerToChar, will take the parameter, and 
+Definition of playerToChar, will take the parameter, and return a character representationof such player
 -}
-playerToChar p | (p==1) ='O'
-   | (p==0) = 'X'
+playerToChar p | (p==2) ='O'
+   | (p==1) = 'X'
 
    
 
---Gets a number from console
-getX = do
-     putStrLn "Enter a positive value?"
+--Gets a number from consoleas a slot
+readSlot bd p= do
+     putStrLn "Enter a number between 1-7 or -1 to quit"
      line <- getLine
      let parsed = reads line :: [(Integer, String)] in
-       if length parsed < 0
-       then getX'
+       if length parsed < -1  --invalid value
+       then readSlot'
        else let (x, _) = head parsed in
-         if x <= 1 
-         then do 
-            let pl = playerToChar x
-            putChar pl
-         else getX'
+         if x > 7  --invalid column
+         then readSlot'
+         else --here we would check if number is -1 else we assume is a slot
+            if x == -1
+            then return 0
+            else
+                return 1 --meanwhile just return this
+                --check if slot is open
+            
      where
-       getX' = do
+       readSlot' = do
          putStrLn "Invalid Input!"
-         getX
+         readSlot bd p
+         
+         
 main = do
-   getX
+--put which player's turn is it
+   let bd = [[0,0,0],
+        [0,0,0]]
+   let p = 1;
+   putStrLn "It is   turn:"
+   answer <- readSlot bd p; --put our value read into answer
+   if answer==0
+   then main--process turn change and repeat main
+   else 
+    return 0--terminate program
