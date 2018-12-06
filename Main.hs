@@ -88,7 +88,6 @@ play = do
             else do
                 play'
     else return 0--terminate program
-
      {-|
     The game can end by a player winning, a board being full or the player quitting
     We will first check if the slot is open, 
