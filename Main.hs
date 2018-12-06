@@ -15,7 +15,7 @@ playerToChar p | (p==2) ='O'
    | (p==1) = 'X'
 
 --Board, player and opponent   
-bd = mkBoard 7 6
+bd = mkBoard 6 7
 player = mkPlayer
 opponnent = mkOpponent
 turn = 1   
@@ -116,7 +116,7 @@ playAI = do
                 if turn == 1
                 then do 
                     --dropInSlot bd answer player--drop it with the player
-                    if isWonBy bd turn --if player won with this movement we quit
+                    if isWonBy bd player --if player won with this movement we quit
                     then do
                         putStrLn "Congrats!!" --program ends
                         return 0
@@ -128,7 +128,7 @@ playAI = do
                         playAI' --remmeber to change this part to change the turn
                 else do 
                     --dropInSlot bd answer opponnent --drop it with the opponent
-                    if isWonBy bd turn --if player won with this movement we quit
+                    if isWonBy bd opponnent --if player won with this movement we quit
                     then do
                         putStrLn "Congrats!!" --program ends
                         return 0

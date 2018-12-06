@@ -11,7 +11,7 @@ dropInSlot
 ) where
 
 
-mkBoard m n = [ [ (0) | m <- [1..m] ] | n <- [1..n] ]
+mkBoard m n = [ [ (1) | m <- [1..m] ] | n <- [1..n] ]
 
 mkPlayer = 1
 
@@ -42,11 +42,13 @@ isFull xs =  notElem 0 (head xs)
 
 boardToStr :: (Integer -> Char) -> [[Integer]] -> [Char]
 boardToStr playerToChar [[]] = "Empty Board" 
-boardToStr playerToChar (x:_) = makeRowString playerToChar x 
+boardToStr playerToChar (x:xs) =makeRowString playerToChar x ++ boardToStr playerToChar xs
+boardToStr playerToChar [] = ""
 
 makeRowString :: (Integer -> Char) -> [Integer] ->[Char]
-makeRowString playerToChar (x:xs) = " " ++ makeRowString playerToChar xs 
-makeRowString playerToChar x = if head x==0 then charToString '-' else charToString (playerToChar (head x))
+makeRowString playerToChar (x:xs) = if x==0 then charToString '-'++makeRowString playerToChar xs else charToString (playerToChar (x))
+makeRowString playerToChar (x:xs) = show xs 
+makeRowString playerToChar [] = "" 
 
 
 charToString :: Char -> String
