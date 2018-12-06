@@ -2,11 +2,11 @@ module Main where
 import Board
 import System.Random
 
---Declaration of function that will take a player as integer and return a char representation of it
-playerToChar :: Integer -> Char 
+--Declaration of function that will take a player as Int and return a char representation of it
+playerToChar :: Int -> Char 
 
 --Declaration of function that will take a number from console and returns and IO value
-readSlot :: [[Integer]] -> Integer -> IO(Integer)
+readSlot :: [[Int]] -> Int -> IO(Int)
 
 {-|
 Definition of playerToChar, will take the parameter, and return a character representation of such player
@@ -27,7 +27,7 @@ turn = 1
 readSlot bd p= do
      putStrLn "Enter a number between 1-7 or -1 to quit"
      line <- getLine
-     let parsed = reads line :: [(Integer, String)] in
+     let parsed = reads line :: [(Int, String)] in
        if length parsed == 0  --empty string so reprompt
        then readSlot'
        else let (x, _) = head parsed in
@@ -156,7 +156,7 @@ main = do
    --We will prompt user for either play against "AI" or normally
     putStrLn "Do you wish to play normally or against AI? Enter 1 or 0 respectively to choose"
     line <- getLine
-    let parse = reads line :: [(Integer, String)] in
+    let parse = reads line :: [(Int, String)] in
        if length parse == 0  --empty string so reprompt
        then main'
        else let (x, _) = head parse in
